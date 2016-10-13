@@ -1,21 +1,26 @@
+
+// Working but with no .filter method: 
 function destroyer(arr) {
   // Remove all the values
   
   var args = Array.prototype.slice.call(arguments);
-  var temparr = [];
   var i;
   var j;
   
   for (i = 0; i < args.length; i++) {
       if (Array.isArray(args[i])) {
-        temparr = args.splice(i,1);
+        args.splice(i,1);
         }
     }
     
-  for (i=0; i < arr.length; i++) {
-    for (j= 0; j < args.length; j++) {
-      if (arr[i] === args[j]) {
-        temparr = arr.splice(i,1);
+  for (j=0; j < args.length; j++) {
+    for (i= 0; i < arr.length; i++) {
+      if (arr[i] === args[j] && i !== 0) {
+        arr.splice(i,1);
+        i--;
+        }
+        else if (arr[i] === args[j] && i === 0) {
+          arr.splice(i,1);
         }
       }
     }
@@ -23,4 +28,4 @@ function destroyer(arr) {
   return arr;
 }
 
-destroyer([1, 2, 3, 1, 2, 3], 2, 3);
+destroyer([5,6], 6, 5);
